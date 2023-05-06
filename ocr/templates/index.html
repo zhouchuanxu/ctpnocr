@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html>
+<head>
+
+<!--  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.min.css">
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.min.js"></script>
+
+<!--    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+<!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+
+	<title>AI 文字识别</title>
+	<meta charset="utf-8">
+
+
+	<style type="text/css">
+		body {
+			margin: 0;
+            padding: 0;
+		}
+        form {
+
+            width: 90%;
+            margin: 50px;
+        }
+        h1, label, input[type="submit"] {
+            display: block;
+            text-align: left;
+        }
+        #image {
+            margin-bottom: 10px;
+        }
+        hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <header class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark">
+        <div class="container-fluid d-flex align-items-center">
+            <h1 class="d-flex align-items-center fs-4 text-white mb-0">
+<!--      <img src="../assets/brand/bootstrap-logo-white.svg" width="38" height="30" class="me-3" alt="Bootstrap">-->
+            AI-文字识别
+             </h1>
+<!--    <a href="../examples/cheatsheet-rtl/" class="ms-auto link-light" hreflang="ar">RTL cheatsheet</a>-->
+        </div>
+    </header>
+
+    <form action="/" method="post" enctype="multipart/form-data" id = "my-form">
+
+        <br>
+        <h1>AI-文字识别</h1>
+        <br>
+<!--        <label for="image">请选择你的文件</label>-->
+        <h3>请选择你的文件</h3>
+        <input type="file" class="form-control" id="inputGroupFile02" name="image" accept="image/*">
+<!--        <input type="file" id="image" name="image" accept="image/*">-->
+        <br>
+        <input type="submit" id = "btn00" class="btn btn-dark" value="提交进行识别" >
+
+        <div id="preview" >
+            {% if image_data %}
+            <img src="data:image/png;base64,{{ image_data }}" alt="uploaded image" height="500px">
+            {% else %}
+
+            {% endif %}
+        </div> <!-- 新增一个空的 <div> 元素用于显示图像 -->
+
+        <br>
+        <hr>
+        <br>
+        <div>
+            <h3>识别到的文本:</h3>
+            <textarea rows="10" cols="50" class="form-control" placeholder=" " id="floatingTextarea2" >{{ output_text }}</textarea>
+
+
+        </div>
+
+<!--        <img src="./t3.png" class="img-fluid" alt="...">-->
+    </form>
+
+    <script>
+
+
+    const inputElement = document.getElementById("inputGroupFile02");
+    const previewElement = document.getElementById("preview");
+
+    inputElement.addEventListener("change", handleFiles, false);
+
+    function handleFiles() {
+        while (previewElement.firstChild) {
+            previewElement.removeChild(previewElement.firstChild);
+        }
+
+        const fileList = this.files;
+        const file = fileList[0];
+
+        const reader = new FileReader();
+        reader.onload = function () {
+            const imageElement = document.createElement("img");
+            imageElement.src = reader.result;
+            imageElement.style.height = "500px";
+
+            previewElement.appendChild(imageElement);
+
+        };
+      reader.readAsDataURL(file);
+
+    }
+
+
+
+
+</script>
+
+
+
+
+</script>
+</body>
+
+
+</html>
